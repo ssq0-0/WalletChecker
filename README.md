@@ -6,7 +6,9 @@ A script to check the number of tokens on the wallet from different projects.
 
 ## Features
 
-- **Linea LXP:** Module for checking the number of LXP on a wallet in the Linea network
+- **Linea LXP + LXP-l:** Module for checking the number of LXP and LXP-l on a wallet in the Linea network
+- **Odos:** Module for checking the number ODOS tokens
+- **Superform CRED:** Module for checking the number of Superform CRED
 
 *(More features coming soon!)*
 
@@ -54,6 +56,12 @@ docker run -it \
 This section defines the wallets used by the software. Each wallet is described by the following fields:
 
 - **`address`**: The addres of your wallet.
+---
+### Proxy (`proxy.txt`)
+
+This section defines the proxy used by the program. Each proxy is described by the following fields:
+
+- **`user:pass@ip:port`**:
 ---
 
 ### Modules (`modules`)

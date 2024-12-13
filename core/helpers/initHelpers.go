@@ -8,10 +8,8 @@ import (
 	"checkers/utils"
 	"errors"
 	"fmt"
-	"math/rand"
 	"os"
 	"path/filepath"
-	"time"
 )
 
 func GetAllPath() (map[string]string, error) {
@@ -78,22 +76,16 @@ func AccsInit(accAddressesPath, module string, proxys []string) ([]*account.Acco
 	if len(proxys) == 0 {
 		proxys = nil
 	}
-	randSource := rand.NewSource(time.Now().UnixNano())
-	randGen := rand.New(randSource)
 
 	var accs []*account.Account
 	for i, addr := range addresses {
 		var proxy string
 
-		if len(proxys) > 0 {
-			if len(proxys) < len(addresses) {
-				proxy = proxys[randGen.Intn(len(proxys))]
-			} else if len(proxys) == len(addresses) {
-				var err error
-				proxy, err = utils.ParseProxy(proxys[i])
-				if err != nil {
-					return nil, fmt.Errorf("не удалось разобрать прокси: %v", err)
-				}
+		if len(proxys) > 0 && i < len(proxys) {
+			var err error
+			proxy, err = utils.ParseProxy(proxys[i])
+			if err != nil {
+				return nil, fmt.Errorf("не удалось разобрать прокси: %v", err)
 			}
 		}
 
