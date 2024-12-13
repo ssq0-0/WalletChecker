@@ -5,7 +5,6 @@ import (
 	"checkers/models"
 	"checkers/modules/modulesHelpers"
 	"fmt"
-	"log"
 )
 
 type Superform struct {
@@ -26,6 +25,5 @@ func (s *Superform) Check(acc *account.Account) (float64, error) {
 		return 0, err
 	}
 
-	log.Println(sfResp.CurrentUser.Cred)
-	return 0, nil
+	return sfResp.CurrentUser.Cred, nil
 }

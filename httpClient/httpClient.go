@@ -13,10 +13,10 @@ type HttpClient struct {
 	Client *http.Client
 }
 
-func NewHttpClient(proxyURL *string) (*HttpClient, error) {
+func NewHttpClient(proxyURL string) (*HttpClient, error) {
 	var transport *http.Transport
-	if proxyURL != nil && *proxyURL != "" {
-		proxy, err := url.Parse(*proxyURL)
+	if proxyURL != "" {
+		proxy, err := url.Parse(proxyURL)
 		if err == nil {
 			transport = &http.Transport{
 				Proxy: http.ProxyURL(proxy),

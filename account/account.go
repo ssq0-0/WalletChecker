@@ -8,9 +8,10 @@ type Account struct {
 	Proxy   string
 }
 
-func NewAccount(address, module string) (*Account, error) {
+func NewAccount(address, module, proxy string) (*Account, error) {
 	return &Account{
 		Address: common.HexToAddress(address),
 		Module:  module,
+		Proxy:   proxy,
 	}, nil
 }

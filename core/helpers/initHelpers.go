@@ -8,8 +8,10 @@ import (
 	"checkers/utils"
 	"errors"
 	"fmt"
+	"math/rand"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 func GetAllPath() (map[string]string, error) {
@@ -25,9 +27,15 @@ func GetAllPath() (map[string]string, error) {
 		return nil, err
 	}
 
+	proxyPath := filepath.Join(root, "account", "proxy.txt")
+	if _, err := os.Stat(proxyPath); os.IsNotExist(err) {
+		return nil, err
+	}
+
 	return map[string]string{
 		"wallets": accWalletsPath,
 		"config":  configPath,
+		"proxy":   proxyPath,
 	}, nil
 }
 
@@ -49,7 +57,16 @@ func ClientsInit() (map[string]*ethClient.Client, error) {
 	return clients, nil
 }
 
-func AccsInit(accAddressesPath, module string) ([]*account.Account, error) {
+func ProxyInit(proxyFilePath string) ([]string, error) {
+	addresses, err := utils.FileReader(proxyFilePath)
+	if err != nil {
+		return nil, err
+	}
+
+	return addresses, nil
+}
+
+func AccsInit(accAddressesPath, module string, proxys []string) ([]*account.Account, error) {
 	addresses, err := utils.FileReader(accAddressesPath)
 	if err != nil {
 		return nil, err
@@ -58,13 +75,35 @@ func AccsInit(accAddressesPath, module string) ([]*account.Account, error) {
 		return nil, fmt.Errorf("нет ни одного адреса. Проверьте файл wallets.csv")
 	}
 
+	if len(proxys) == 0 {
+		proxys = nil
+	}
+	randSource := rand.NewSource(time.Now().UnixNano())
+	randGen := rand.New(randSource)
+
 	var accs []*account.Account
-	for _, addr := range addresses {
-		acc, err := account.NewAccount(addr, module)
+	for i, addr := range addresses {
+		var proxy string
+
+		if len(proxys) > 0 {
+			if len(proxys) < len(addresses) {
+				proxy = proxys[randGen.Intn(len(proxys))]
+			} else if len(proxys) == len(addresses) {
+				var err error
+				proxy, err = utils.ParseProxy(proxys[i])
+				if err != nil {
+					return nil, fmt.Errorf("не удалось разобрать прокси: %v", err)
+				}
+			}
+		}
+
+		acc, err := account.NewAccount(addr, module, proxy)
 		if err != nil {
 			return nil, err
 		}
 		accs = append(accs, acc)
 	}
+
 	return accs, nil
+
 }

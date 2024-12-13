@@ -32,7 +32,19 @@ func main() {
 		return
 	}
 
-	accs, err := helpers.AccsInit(paths["wallets"], userChoice())
+	userChoice := userChoice()
+	if userChoice == "Выйти" {
+		logger.GlobalLogger.Infof("Завершаем работу.")
+		return
+	}
+
+	proxys, err := helpers.ProxyInit(paths["proxy"])
+	if err != nil {
+		logger.GlobalLogger.Error(err)
+		return
+	}
+
+	accs, err := helpers.AccsInit(paths["wallets"], userChoice, proxys)
 	if err != nil {
 		logger.GlobalLogger.Error(err)
 		return
@@ -52,7 +64,7 @@ func userChoice() string {
 		"2. Linea LXP-l",
 		"3. Odos",
 		"4. Superform CRED",
-		"0. Выйти.",
+		"0. Выйти",
 	}
 
 	var selected string
