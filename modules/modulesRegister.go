@@ -22,6 +22,7 @@ func ModsInit(cfg *config.Config, clients map[string]*ethClient.Client) (map[str
 			return err
 		}
 		checkers.Store("Linea LXP", linea)
+		checkers.Store("Linea LXP-l", linea)
 		return nil
 	})
 

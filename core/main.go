@@ -49,6 +49,7 @@ func main() {
 func userChoice() string {
 	modules := []string{
 		"1. Linea LXP",
+		"2. Linea LXP-l",
 		"0. Выйти.",
 	}
 
@@ -83,6 +84,7 @@ func proccessAccount(accs []*account.Account, mods map[string]modules.Checker, a
 
 			res, err := mods[acc.Module].Check(acc)
 			if err != nil {
+				logger.GlobalLogger.Error(err)
 				return
 			}
 			aggregator.Add(acc.Address, res)
