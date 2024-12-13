@@ -5,6 +5,7 @@ import (
 	"checkers/ethClient"
 	"checkers/modules/linea"
 	"checkers/modules/odos"
+	"checkers/modules/superform"
 	"sync"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -33,6 +34,15 @@ func ModsInit(cfg *config.Config, clients map[string]*ethClient.Client) (map[str
 			return err
 		}
 		checkers.Store("Odos", odos)
+		return nil
+	})
+
+	g.Go(func() error {
+		superform, err := superform.NewSuperform()
+		if err != nil {
+			return err
+		}
+		checkers.Store("Superform CRED", superform)
 		return nil
 	})
 

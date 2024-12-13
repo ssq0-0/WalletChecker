@@ -10,3 +10,9 @@ type OdosResp struct {
 		PendingTokenBalance string `json:"pendingTokenBalance"`
 	} `json:"data"`
 }
+
+type SuperformResp struct {
+	CurrentUser struct {
+		Cred float64 `json:"cred"`
+	} `json:"current_user"`
+}
