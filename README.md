@@ -24,10 +24,10 @@ A script to check the number of tokens on the wallet from different projects.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/ssq0-0/base.git
+git clone https://github.com/ssq0-0/WalletChecker.git
 cd base
 go mod download
-go build -o base ./core/main.go   
+go build -o walletchecker ./core/main.go   
 ```
 2. Run the application:
 
