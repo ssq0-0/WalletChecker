@@ -3,9 +3,8 @@ package linea
 import (
 	"checkers/account"
 	"checkers/ethClient"
-	"checkers/httpClient"
-	"checkers/logger"
 	"checkers/models"
+	"checkers/modules/modulesHelpers"
 	"checkers/utils"
 	"strings"
 
@@ -36,7 +35,7 @@ func (l *Linea) Check(acc *account.Account) (float64, error) {
 
 		return utils.ConvertFrom18(result), nil
 	case "Linea LXP-l":
-		client := createHttpClient(acc.Proxy)
+		client := modulesHelpers.CreateHttpClient(acc.Proxy)
 		url := l.createRequestURL(acc)
 
 		var lineaResp []models.LineaResp
@@ -51,14 +50,4 @@ func (l *Linea) Check(acc *account.Account) (float64, error) {
 
 func (l *Linea) createRequestURL(acc *account.Account) string {
 	return l.Endpoint + strings.ToLower(acc.Address.Hex())
-}
-
-func createHttpClient(proxy string) *httpClient.HttpClient {
-	client, err := httpClient.NewHttpClient(&proxy)
-	if err != nil {
-		logger.GlobalLogger.Warnf("ошибка создания http клиента: %w", err)
-		return nil
-	}
-
-	return client
 }

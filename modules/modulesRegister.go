@@ -4,6 +4,7 @@ import (
 	"checkers/config"
 	"checkers/ethClient"
 	"checkers/modules/linea"
+	"checkers/modules/odos"
 	"sync"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -23,6 +24,15 @@ func ModsInit(cfg *config.Config, clients map[string]*ethClient.Client) (map[str
 		}
 		checkers.Store("Linea LXP", linea)
 		checkers.Store("Linea LXP-l", linea)
+		return nil
+	})
+
+	g.Go(func() error {
+		odos, err := odos.NewOdos()
+		if err != nil {
+			return err
+		}
+		checkers.Store("Odos", odos)
 		return nil
 	})
 

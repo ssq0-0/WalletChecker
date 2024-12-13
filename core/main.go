@@ -50,6 +50,7 @@ func userChoice() string {
 	modules := []string{
 		"1. Linea LXP",
 		"2. Linea LXP-l",
+		"3. Odos",
 		"0. Выйти.",
 	}
 
