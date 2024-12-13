@@ -1,0 +1,8 @@
+# Исключить каталоги сборки и временные файлы
+.git
+.gitignore
+Dockerfile
+Dockerfile.*
+*.md
+*.log
+*.csv
