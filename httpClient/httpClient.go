@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 )
@@ -57,10 +56,8 @@ func (h *HttpClient) SendJSONRequest(urlRequest, method string, reqBody, respBod
 	} else {
 		req, err = http.NewRequest(method, urlRequest, nil)
 		if err != nil {
-			log.Println(6, "Error in http.NewRequest:", err)
 			return err
 		}
-		log.Println(7, "http.NewRequest created successfully")
 	}
 
 	resp, err := h.Client.Do(req)
