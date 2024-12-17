@@ -64,6 +64,7 @@ func userChoice() string {
 		"2. Linea LXP-l",
 		"3. Odos",
 		"4. Superform CRED",
+		"5. Pengu",
 		"0. Выйти",
 	}
 

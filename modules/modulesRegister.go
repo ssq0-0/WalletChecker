@@ -5,6 +5,7 @@ import (
 	"checkers/ethClient"
 	"checkers/modules/linea"
 	"checkers/modules/odos"
+	"checkers/modules/pengu"
 	"checkers/modules/superform"
 	"sync"
 
@@ -43,6 +44,15 @@ func ModsInit(cfg *config.Config, clients map[string]*ethClient.Client) (map[str
 			return err
 		}
 		checkers.Store("Superform CRED", superform)
+		return nil
+	})
+
+	g.Go(func() error {
+		pengu, err := pengu.NewPengu()
+		if err != nil {
+			return err
+		}
+		checkers.Store("Pengu", pengu)
 		return nil
 	})
 

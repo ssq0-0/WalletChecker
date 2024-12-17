@@ -16,3 +16,7 @@ type SuperformResp struct {
 		Cred float64 `json:"cred"`
 	} `json:"current_user"`
 }
+
+type PenguResp struct {
+	Total int `json:"total"`
+}
