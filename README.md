@@ -9,6 +9,7 @@ A script to check the number of tokens on the wallet from different projects.
 - **Linea LXP + LXP-l:** Module for checking the number of LXP and LXP-l on a wallet in the Linea network
 - **Odos:** Module for checking the number ODOS tokens
 - **Superform CRED:** Module for checking the number of Superform CRED
+- **Pengu:** Module for checking the number of Pengu tokens
 
 *(More features coming soon!)*
 
