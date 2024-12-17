@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-
-	"github.com/ethereum/go-ethereum/common"
 )
 
 func FileReader(filename string) ([]string, error) {
@@ -29,7 +27,7 @@ func FileReader(filename string) ([]string, error) {
 	return lines, nil
 }
 
-func FileWriter(filename string, data map[common.Address]float64) error {
+func FileWriter(filename string, data map[string]float64) error {
 	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0664)
 	if err != nil {
 		return fmt.Errorf("не удалось открыть файл %s: %v", filename, err)
@@ -46,7 +44,7 @@ func FileWriter(filename string, data map[common.Address]float64) error {
 
 	for addr, amount := range data {
 		record := []string{
-			addr.Hex(),
+			addr,
 			strconv.FormatFloat(amount, 'f', 2, 64),
 		}
 

@@ -4,12 +4,10 @@ import (
 	"checkers/logger"
 	"checkers/utils"
 	"sync"
-
-	"github.com/ethereum/go-ethereum/common"
 )
 
 type AddressData struct {
-	Address common.Address
+	Address string
 	Amount  float64
 }
 
@@ -20,16 +18,16 @@ type SummaryData struct {
 
 type Aggregator struct {
 	mu   sync.Mutex
-	data map[common.Address]float64
+	data map[string]float64
 }
 
 func NewAggreagtor() *Aggregator {
 	return &Aggregator{
-		data: make(map[common.Address]float64),
+		data: make(map[string]float64),
 	}
 }
 
-func (a *Aggregator) Add(addr common.Address, amount float64) {
+func (a *Aggregator) Add(addr string, amount float64) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	a.data[addr] += amount

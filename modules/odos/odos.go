@@ -31,5 +31,5 @@ func (o *Odos) Check(acc *account.Account) (float64, error) {
 }
 
 func (o *Odos) createRequestURL(acc *account.Account) string {
-	return fmt.Sprintf(o.Endpoint, strings.ToLower(acc.Address.Hex()))
+	return fmt.Sprintf(o.Endpoint, strings.ToLower(acc.Address))
 }

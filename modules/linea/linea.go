@@ -28,7 +28,7 @@ func NewLinea(lxpCA common.Address, ethClient *ethClient.Client) (*Linea, error)
 func (l *Linea) Check(acc *account.Account) (float64, error) {
 	switch acc.Module {
 	case "Linea LXP":
-		result, err := l.Client.BalanceCheck(acc.Address, l.LxpCA)
+		result, err := l.Client.BalanceCheck(common.HexToAddress(acc.Address), l.LxpCA)
 		if err != nil {
 			return 0, err
 		}
@@ -49,5 +49,5 @@ func (l *Linea) Check(acc *account.Account) (float64, error) {
 }
 
 func (l *Linea) createRequestURL(acc *account.Account) string {
-	return l.Endpoint + strings.ToLower(acc.Address.Hex())
+	return l.Endpoint + strings.ToLower(acc.Address)
 }
