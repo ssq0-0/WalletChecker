@@ -8,27 +8,12 @@ import (
 	"checkers/utils"
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 )
 
 func GetAllPath() (map[string]string, error) {
-	root := utils.GetRootDir()
-
-	accWalletsPath := filepath.Join(root, "account", "wallets.csv")
-	if _, err := os.Stat(accWalletsPath); os.IsNotExist(err) {
-		return nil, err
-	}
-
-	configPath := filepath.Join(root, "config", "config.json")
-	if _, err := os.Stat(configPath); os.IsNotExist(err) {
-		return nil, err
-	}
-
-	proxyPath := filepath.Join(root, "account", "proxy.txt")
-	if _, err := os.Stat(proxyPath); os.IsNotExist(err) {
-		return nil, err
-	}
+	accWalletsPath := "account/wallets.csv"
+	configPath := "config/config.json"
+	proxyPath := "account/proxy.txt"
 
 	return map[string]string{
 		"wallets": accWalletsPath,
@@ -97,5 +82,4 @@ func AccsInit(accAddressesPath, module string, proxys []string) ([]*account.Acco
 	}
 
 	return accs, nil
-
 }

@@ -55,11 +55,3 @@ func FileWriter(filename string, data map[string]float64) error {
 
 	return nil
 }
-
-func GetRootDir() string {
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	return dir
-}
