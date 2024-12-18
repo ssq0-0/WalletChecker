@@ -3,6 +3,7 @@ package modules
 import (
 	"checkers/config"
 	"checkers/ethClient"
+	"checkers/modules/fuel"
 	"checkers/modules/linea"
 	"checkers/modules/odos"
 	"checkers/modules/pengu"
@@ -53,6 +54,15 @@ func ModsInit(cfg *config.Config, clients map[string]*ethClient.Client) (map[str
 			return err
 		}
 		checkers.Store("Pengu", pengu)
+		return nil
+	})
+
+	g.Go(func() error {
+		fuel, err := fuel.NewFuel()
+		if err != nil {
+			return err
+		}
+		checkers.Store("Fuel", fuel)
 		return nil
 	})
 

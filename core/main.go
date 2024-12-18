@@ -65,6 +65,7 @@ func userChoice() string {
 		"3. Odos",
 		"4. Superform CRED",
 		"5. Pengu",
+		"6. Fuel",
 		"0. Выйти",
 	}
 

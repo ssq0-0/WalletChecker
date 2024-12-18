@@ -1,5 +1,7 @@
 package models
 
+import "math/big"
+
 type LineaResp struct {
 	Address string `json:"user_address"`
 	Xp      int    `json:"xp"`
@@ -19,4 +21,10 @@ type SuperformResp struct {
 
 type PenguResp struct {
 	Total int `json:"total"`
+}
+
+type FuelResp struct {
+	Allocation []struct {
+		Amount *big.Int `json:"amount"`
+	} `json:"allocations"`
 }
