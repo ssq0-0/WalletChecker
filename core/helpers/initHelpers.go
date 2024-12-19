@@ -59,6 +59,7 @@ func AccsInit(accAddressesPath, module string, proxys []string) ([]*account.Acco
 	}
 
 	if len(proxys) == 0 {
+		logger.GlobalLogger.Warnf("Прокси не обнаружено, возможны ошибки при проверке аллокации.")
 		proxys = nil
 	}
 
@@ -66,12 +67,13 @@ func AccsInit(accAddressesPath, module string, proxys []string) ([]*account.Acco
 	for i, addr := range addresses {
 		var proxy string
 
-		if len(proxys) > 0 && i < len(proxys) {
-			var err error
-			proxy, err = utils.ParseProxy(proxys[i])
+		if len(proxys) > 0 {
+			proxyIndex := i % len(proxys)
+			parsedProxy, err := utils.ParseProxy(proxys[proxyIndex])
 			if err != nil {
 				return nil, fmt.Errorf("не удалось разобрать прокси: %v", err)
 			}
+			proxy = parsedProxy
 		}
 
 		acc, err := account.NewAccount(addr, module, proxy)
