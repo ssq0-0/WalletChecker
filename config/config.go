@@ -10,7 +10,6 @@ import (
 )
 
 type Config struct {
-	Modules   []string          `json:"modules"`
 	Contracts map[string]string `json:"contracts"`
 }
 
